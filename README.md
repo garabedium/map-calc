@@ -1,22 +1,13 @@
-# map-calc
+# Map Calc App
+Map + Calculations
 
-## CLI Commands
+## Demo
+[Demo URL](http://map-calc.garabedium.com/)
 
-``` bash
-# install dependencies
-npm install
+## Features
+...
+## Local Setup / Tests
+...
 
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# test the production build locally
-npm run serve
-
-# run tests with jest and enzyme
-npm run test
-```
-
-For detailed explanation on how things work, checkout the [CLI Readme](https://github.com/developit/preact-cli/blob/master/README.md).
+## Acknowledgements
+...
