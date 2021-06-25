@@ -15,7 +15,7 @@ const GoogleMap = (props) => {
 
 		const loader = new Loader({ 
 			apiKey: apiKey,
-			libraries: ["drawing"]
+			libraries: ["drawing","geometry"]
 		})
 
 		loader.load().then(() => {
@@ -31,17 +31,42 @@ const GoogleMap = (props) => {
 				drawingControlOptions: {
 					position: google.maps.ControlPosition.TOP_CENTER,
 					drawingModes: [
-						google.maps.drawing.OverlayType.POLYGON
+						google.maps.drawing.OverlayType.POLYGON,
+						google.maps.drawing.OverlayType.RECTANGLE
 					]
 				},
 				polygonOptions: {
+					draggable: true,
+					editable: true
+				},
+				rectangleOptions: {
 					draggable: true,
 					editable: true
 				}
 			})
 
 			drawingManager.setMap(map)
+
+			google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event){
+				if (event.type == 'polygon'){
+					console.log('polygon drawn')
+					// google.maps.geometry.spherical.computeArea(event.overlay.getPath())
+				}
+				if (event.type == 'rectangle'){
+					// console.log('square drawn')
+					// const ne = event.overlay.getBounds().getNorthEast();
+					// const sw = event.overlay.getBounds().getSouthWest();
+					// var areaPath = [
+					// 	ne.lat(), ne.lng(), sw.lat(), sw.lng()
+					// ]
+					// var area = google.maps.geometry.spherical.computeArea(areaPath)
+				}
+			})
+
 		})
+
+
+
 
 		return(
 			<div id="map" class={style.map}></div>
