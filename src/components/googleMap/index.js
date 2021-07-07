@@ -47,19 +47,20 @@ const GoogleMap = (props) => {
 
 			drawingManager.setMap(map)
 
+			// Calculate area of polygon or rectangle
+			// Geometry Library: https://developers.google.com/maps/documentation/javascript/reference/geometry
 			google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event){
 				if (event.type == 'polygon'){
-					console.log('polygon drawn')
-					// google.maps.geometry.spherical.computeArea(event.overlay.getPath())
+					const area = google.maps.geometry.spherical.computeArea(event.overlay.getPath())
 				}
 				if (event.type == 'rectangle'){
-					// console.log('square drawn')
-					// const ne = event.overlay.getBounds().getNorthEast();
-					// const sw = event.overlay.getBounds().getSouthWest();
-					// var areaPath = [
-					// 	ne.lat(), ne.lng(), sw.lat(), sw.lng()
-					// ]
-					// var area = google.maps.geometry.spherical.computeArea(areaPath)
+					var bounds = event.overlay.getBounds();
+					const NE = bounds.getNorthEast()
+					const SW = bounds.getSouthWest()
+					const NW = new google.maps.LatLng(NE.lat(),SW.lng())
+					const SE = new google.maps.LatLng(SW.lat(),NE.lng())
+					const paths = [NE,NW,SW,SE,NE]
+					const area = google.maps.geometry.spherical.computeArea(paths)
 				}
 			})
 
